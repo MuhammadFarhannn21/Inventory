@@ -1,12 +1,18 @@
 <?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "barang_db";
+$host = 'localhost';
+$dbname = 'inventory'; // Sesuaikan nama database
+$user = 'root';        // Sesuaikan username
+$pass = '';            // Sesuaikan password
 
-$conn = new mysqli($host, $user, $pass, $db);
+$dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+];
 
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
+try {
+     $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (\PDOException $e) {
+     die("Koneksi Gagal: " . $e->getMessage());
 }
 ?>
